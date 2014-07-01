@@ -72,7 +72,7 @@ class LearnAPI(object):
     assert self.logined
     r = self.session.get(url, stream=True)
 
-    real_name = r.headers['content-disposition'].decode('gb2312', 'replace').split('"')[1]
+    real_name = r.headers['content-disposition'].decode('gbk', 'replace').split('"')[1]
     real_name = real_name.replace('/', '_')
     real_name = real_name.replace('\\', '_')
 

@@ -7,4 +7,6 @@ URL={
 	'homework_detail' : 'http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/hom_wk_detail.jsp', #作业详细
 	'discuss' : 'https://learn.tsinghua.edu.cn/MultiLanguage/public/bbs/gettalkid_student.jsp',		#课程讨论
 	'discuss_detail' : 'http://learn.tsinghua.edu.cn/MultiLanguage/public/bbs/talk_reply_student.jsp',
+    'base_URL' : 'http://learn.tsinghua.edu.cn',
+
 }

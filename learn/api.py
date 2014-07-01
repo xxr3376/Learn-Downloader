@@ -51,16 +51,36 @@ class LearnAPI(object):
 
     doc = bs(r.text)
     table = doc.find(id='table_box')
-    print table.text.encode('gbk', 'ignore')
-    list_ = table.tr
-    print len(list_)
+    list_ = table.select('.tr1') + table.select('.tr2')
 
     # return a table
-    return map(lambda x:x.td, list_)
+    return map(lambda x:x.find_all('td'), list_)
 
   def get_file_list(self, course_id):
     dom_list = self.get_list_template('file', course_id)
 
-    print len(dom_list)
+    result = []
+
     for tr in dom_list:
-      print tr[1]
+      id_ = tr[0].get_text()
+      name = tr[1].get_text().strip()
+      href = const.URL['base_URL'] + tr[1].find('a')['href']
+      result.append((id_, name, href))
+    return result
+
+  def download_file(self, url, filename):
+    assert self.logined
+    r = self.session.get(url, stream=True)
+
+    real_name = r.headers['content-disposition'].decode('gb2312').split('"')[1]
+    real_name = real_name.replace('/', '_')
+    real_name = real_name.replace('\\', '_')
+
+    filename = filename + real_name
+    print u'downloading file: %s' % filename
+
+    with open(filename, 'wb') as f:
+      for chunk in r.iter_content(1024):
+        f.write(chunk)
+
+    return filename

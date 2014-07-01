@@ -27,10 +27,15 @@ for course_id, course_name, term in course_list:
 
   distutils.dir_util.mkpath(course_path + '/file/')
 
+  relation = []
   for file_id, filename, file_link in file_list:
     filename = filename.replace('/', '_')
     filename = filename.replace('\\', '_')
 
-    file_path = "%s/file/%s-%s" % (course_path, file_id, filename)
+    file_path = "%s/file/%s" % (course_path, file_id)
 
     real_path = api.download_file(file_link, file_path)
+
+    relation.append( "%s\t%s" % (real_path.split('/')[-1], filename))
+  with open(course_path + '/file/relation.tsv', 'wb') as f:
+    f.write('\n'.join(relation).encode('utf-8'))

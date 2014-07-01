@@ -76,7 +76,7 @@ class LearnAPI(object):
     real_name = real_name.replace('/', '_')
     real_name = real_name.replace('\\', '_')
 
-    filename = filename + real_name
+    filename = filename + '-' + real_name
     print u'downloading file: %s' % filename
 
     with open(filename, 'wb') as f:
